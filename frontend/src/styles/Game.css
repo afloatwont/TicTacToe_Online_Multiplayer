@@ -1,0 +1,85 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+}
+
+.game-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.turn-indicator {
+  font-size: 1.2rem;
+  color: #4ecca3;
+  margin: 1rem 0;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.cell {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #30475e;
+  border-radius: 8px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cell:hover:not(.filled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cell.filled {
+  cursor: not-allowed;
+}
+
+.cell.winner {
+  background: rgba(78, 204, 163, 0.3);
+  border-color: #4ecca3;
+}
+
+.game-over-actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.rematch-button {
+  padding: 12px 30px;
+  background-color: #4ecca3;
+  border: none;
+  border-radius: 8px;
+  color: #1a1a2e;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rematch-button:hover {
+  background-color: #45b393;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(78, 204, 163, 0.4);
+}
+
+@media (max-width: 480px) {
+  .game-board {
+    max-width: 300px;
+  }
+
+  .cell {
+    font-size: 1.5rem;
+  }
+}

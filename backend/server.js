@@ -7,7 +7,7 @@ import gameService from './services/gameService.js';
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://tictactoe-afloat-theta.vercel.app/"],
     methods: ["GET", "POST"]
   }
 });

@@ -20,7 +20,7 @@ export interface ClientToServerEvents {
 }
 
 // Create a single socket instance
-export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io('http://localhost:3000', {
+export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io('https://tictactoe-online-multiplayer.onrender.com', {
   transports: ['websocket'],
   autoConnect: true
 });

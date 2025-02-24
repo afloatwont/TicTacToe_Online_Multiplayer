@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from './components/Home';
 import Lobby from './components/Lobby';
 import Game from './components/Game';
+import OfflineGame from './components/OfflineGame';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/lobby" element={<Lobby />} />
         <Route path="/game/:roomId" element={<Game />} />
+        <Route path="/offline" element={<OfflineGame />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

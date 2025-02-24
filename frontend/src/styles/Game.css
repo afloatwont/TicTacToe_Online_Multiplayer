@@ -27,15 +27,28 @@
   width: 100%;
 }
 
+/* Update the cell styles */
 .cell {
   aspect-ratio: 1;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid #30475e;
   border-radius: 8px;
-  font-size: 2rem;
+  font-size: 3rem; /* Increased from 2rem */
+  font-family: 'Fredoka One', cursive; /* Add custom font */
+  font-weight: 700;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Add different colors for X and O */
+.cell.x-mark {
+  color: #3fa7f0; /* Blue for X */
+}
+
+.cell.o-mark {
+  color: #dd7f9f; /* Pink for O */
 }
 
 .cell:hover:not(.filled) {
@@ -58,6 +71,7 @@
 
 .rematch-button {
   padding: 12px 30px;
+  margin: 12px;
   background-color: #4ecca3;
   border: none;
   border-radius: 8px;
@@ -80,6 +94,6 @@
   }
 
   .cell {
-    font-size: 1.5rem;
+    font-size: 2.5rem; /* Adjusted for mobile */
   }
 }

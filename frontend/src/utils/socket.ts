@@ -24,3 +24,26 @@ export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io('ht
   transports: ['websocket'],
   autoConnect: true
 });
+
+// Add connection event handlers
+socket.on('connect', () => {
+  console.log('Connected to server');
+});
+
+socket.on('connect_error', () => {
+  console.log('Connection failed');
+});
+
+export const checkServerConnection = () => {
+  return new Promise((resolve) => {
+    const timeout = setTimeout(() => {
+      resolve(false);
+    }, 5000);
+
+    socket.connect();
+    socket.on('connect', () => {
+      clearTimeout(timeout);
+      resolve(true);
+    });
+  });
+};

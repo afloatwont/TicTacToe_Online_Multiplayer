@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { socket } from '../utils/socket';
+import { socket, checkServerConnection } from '../utils/socket';
 import '../styles/Home.css';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
+  const [isConnecting, setIsConnecting] = useState(true);
+
+  useEffect(() => {
+    const checkConnection = async () => {
+      const isConnected = await checkServerConnection();
+      setIsConnecting(false);
+      
+      if (!isConnected) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Server Unreachable',
+          text: 'Playing offline mode only. Online features will not be available.',
+          confirmButtonText: 'Okay'
+        });
+      }
+    };
+
+    checkConnection();
+  }, []);
 
   const handleLogin = async () => {
     if (!username.trim()) {
@@ -18,7 +37,22 @@ const Home: React.FC = () => {
       return;
     }
 
+    if (!socket.connected) {
+      localStorage.setItem('username', username);
+      navigate('/offline');
+      return;
+    }
+
+    await Swal.fire({
+      title: 'Connecting to server...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     socket.emit('check_username', username, (response) => {
+      Swal.close();
       if (response.exists) {
         Swal.fire({
           icon: 'error',
@@ -35,6 +69,10 @@ const Home: React.FC = () => {
         }
       });
     });
+  };
+
+  const handleOfflinePlay = () => {
+    navigate('/offline');
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -57,9 +95,20 @@ const Home: React.FC = () => {
           maxLength={15}
         />
       </div>
-      <button className="enter-button" onClick={handleLogin}>
-        Enter Game
+      <button 
+        className="enter-button" 
+        onClick={handleLogin}
+        disabled={isConnecting}
+      >
+        Play Online
       </button>
+      <button 
+        className="offline-button" 
+        onClick={handleOfflinePlay}
+      >
+        Play Offline
+      </button>
+      {isConnecting && <p className="connecting-text">Connecting to server...</p>}
     </div>
   );
 };

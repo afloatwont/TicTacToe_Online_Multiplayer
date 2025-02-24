@@ -176,10 +176,10 @@ const Game: React.FC = () => {
         {gameState.board.map((value, index) => (
           <button
             key={index}
-            className={`cell ${value ? 'filled' : ''} ${
-              gameState.winner && gameState.board[index] === 
-              (state?.symbol === 'X' ? 'X' : 'O') ? 'winner' : ''
-            }`}
+            className={`cell ${value ? 'filled' : ''} 
+              ${value === 'X' ? 'x-mark' : value === 'O' ? 'o-mark' : ''} 
+              ${gameState.winner && gameState.board[index] === 
+              (state?.symbol === 'X' ? 'X' : 'O') ? 'winner' : ''}`}
             onClick={() => handleCellClick(index)}
           >
             {value}

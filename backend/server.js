@@ -1,10 +1,16 @@
+import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import logger from './utils/logger.js';
 import userService from './services/userService.js';
 import gameService from './services/gameService.js';
 
-const httpServer = createServer();
+const app = express();
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
+
+const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
     origin: ["http://localhost:5173", "https://tictactoe-afloat-theta.vercel.app/"],

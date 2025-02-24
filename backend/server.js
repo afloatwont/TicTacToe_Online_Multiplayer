@@ -119,7 +119,7 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(3000, () => {
+httpServer.listen(3000, '0.0.0.0' ,() => {
   logger.info("Server is running on http://localhost:3000");
 });
 
